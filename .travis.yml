@@ -4,4 +4,4 @@ notifications:
   email: false
 
 script:
-  -mvn clean verify
+  - mvn clean verify
