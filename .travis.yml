@@ -5,5 +5,4 @@ notifications:
 
 #prova prova
 script:
-  #qui vanno aggiunte le altre cose
   - mvn clean verify
