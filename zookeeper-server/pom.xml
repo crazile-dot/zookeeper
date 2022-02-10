@@ -151,26 +151,7 @@
       <artifactId>jmockit</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-runner</artifactId>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>org.xerial.snappy</groupId>
       <artifactId>snappy-java</artifactId>
@@ -181,6 +162,12 @@
       <artifactId>commons-io</artifactId>
       <scope>compile</scope>
     </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>RELEASE</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 
   <build>
@@ -261,68 +248,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
-          <forkCount>${surefire-forkcount}</forkCount>
-          <reuseForks>false</reuseForks>
-          <argLine>-Xmx512m -Dtest.junit.threads=${surefire-forkcount} -Dzookeeper.junit.threadid=${surefire.forkNumber} -javaagent:${org.jmockit:jmockit:jar}</argLine>
-          <basedir>${project.basedir}</basedir>
-          <systemPropertyVariables>
-            <build.test.dir>${project.build.directory}/surefire</build.test.dir>
-            <zookeeper.DigestAuthenticationProvider.superDigest>super:D/InIHSb7yEEbrWz8b9l71RjZJU=</zookeeper.DigestAuthenticationProvider.superDigest>
-          </systemPropertyVariables>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>build bundle</id>
-            <phase>package</phase>
-            <goals>
-              <goal>bundle</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <instructions>
-            <Import-Package>
-              io.netty.buffer;resolution:=optional,
-              io.netty.channel;resolution:=optional,
-              io.netty.channel.group;resolution:=optional,
-              io.netty.channel.socket.nio;resolution:=optional,
-              javax.management;resolution:=optional,
-              javax.security.auth.callback,
-              javax.security.auth.login,
-              javax.security.sasl,
-              org.ietf.jgss,
-              org.osgi.framework;resolution:=optional,
-              org.osgi.util.tracker;resolution:=optional,
-              org.slf4j,
-              *;resolution:=optional
-            </Import-Package>
-            <Export-Package>
-              !org.apache.zookeeper.data,
-              !org.apache.zookeeper.proto,
-              !org.apache.zookeeper.txn,
-              org.apache.zookeeper*
-            </Export-Package>
-            <Bundle-Name>ZooKeeper Bundle</Bundle-Name>
-            <Bundle-DocURL>https://zookeeper.apache.org/doc/current/</Bundle-DocURL>
-            <Implementation-Build>${mvngit.commit.id}</Implementation-Build>
-            <Merge-Headers>!Implementation-Build,*</Merge-Headers>
-          </instructions>
-          <classifier>osgi</classifier>
-        </configuration>
       </plugin>
 
       <plugin>
